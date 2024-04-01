@@ -6,7 +6,7 @@ import os
 def read_csv_file(filepath):
     with open(filepath, newline='', encoding='utf-8') as csvfile:
         filereader = csv.reader(csvfile)
-        next(filereader)  # Пропускаем заголовок
+        next(filereader)
         return [tuple(row) for row in filereader]
 
 
