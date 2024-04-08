@@ -24,3 +24,4 @@ FROM orders;
 
 SELECT COUNT(DISTINCT ship_country) AS countries_shipped_to
 FROM orders;
+

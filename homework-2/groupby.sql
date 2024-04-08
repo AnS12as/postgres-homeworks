@@ -3,13 +3,13 @@
 
 -- SELECT DISTINCT ship_city, ship_country
 -- FROM orders
--- WHERE ship_city LIKE '%butg';
+-- WHERE ship_city LIKE '%burg';
 
 -- 2. из таблицы orders идентификатор заказа, идентификатор заказчика, вес и страну отгрузки. Заказ отгружен в страны, начинающиеся на 'P'. Результат отсортирован по весу (по убыванию). Вывести первые 10 записей.
 
 -- SELECT order_id, customer_id, freight, ship_country
 -- FROM orders
--- WHERE ship_country LIKE '%P'
+-- WHERE ship_country LIKE 'P%'
 -- ORDER BY freight DESC
 -- LIMIT 10;
 
@@ -29,34 +29,26 @@
 
 -- 5. суммарный вес заказов (в которых известен регион) по странам, но вывести только те результаты, где суммарный вес на страну больше 2750. Отсортировать по убыванию суммарного веса (см таблицу orders, колонки ship_region, ship_country, freight)
 
--- SELECT country, COUNT(supplier_id) AS supplier_count
--- FROM suppliers
--- GROUP BY country
--- ORDER BY supplier_count DESC;
+-- SELECT ship_country, SUM(freight) AS total_freight
+-- FROM orders
+-- WHERE ship_region IS NOT NULL
+-- GROUP BY ship_country
+-- HAVING SUM(freight) > 2750
+-- ORDER BY total_freight DESC;
 
 -- 6. страны, в которых зарегистрированы и заказчики (customers) и поставщики (suppliers) и работники (employees).
 
--- SELECT DISTINCT ship_country
--- FROM (
--- 	SELECT ship_country FROM orders
--- 	UNION
--- 	SELECT country AS ship_country FROM suppliers
--- 	UNION
--- 	SELECT country AS ship_country FROM employees
---
--- ) AS combined_contries;
+-- SELECT country FROM customers
+-- INTERSECT
+-- SELECT country FROM suppliers
+-- INTERSECT
+-- SELECT country FROM employees;
 
 -- 7. страны, в которых зарегистрированы и заказчики (customers) и поставщики (suppliers), но не зарегистрированы работники (employees).
 
--- SELECT country
--- FROM (
--- 	SELECT country FROM customers
--- 	UNION
--- 	SELECT country FROM suppliers
--- ) AS cs
--- WHERE country NOT IN(
--- 	SELECT country FROM employees
--- )
--- GROUP BY country
--- HAVING COUNT(*) > 1;
+-- (SELECT country FROM customers
+-- INTERSECT
+-- SELECT country FROM suppliers)
+-- EXCEPT
+-- SELECT country FROM employees;
 

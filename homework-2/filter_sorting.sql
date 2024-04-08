@@ -2,7 +2,7 @@
 -- 1. заказы, доставленные в страны France, Germany, Spain (таблица orders, колонка ship_country)
 SELECT *
 FROM orders
-WHERE ship_country IN('FRANCE', 'GERMANY', 'SPAIN');
+WHERE UPPER(ship_country) IN ('FRANCE', 'GERMANY', 'SPAIN');
 
 -- 2. уникальные страны и города, куда отправлялись заказы, отсортировать по странам и городам (таблица orders, колонки ship_country, ship_city)
 
@@ -14,17 +14,17 @@ ORDER BY ship_country, ship_city;
 
 SELECT AVG(shipped_date - order_date) AS average_delivery_days
 FROM orders
-WHERE ship_country = 'Germany'
+WHERE ship_country = 'Germany';
 
 -- 4. минимальную и максимальную цену среди продуктов, не снятых с продажи (таблица products, колонки unit_price, discontinued не равно 1)
 
-SELECT DISTINCT ship_country, ship_city
-FROM orders
-ORDER BY ship_country, ship_city;
+SELECT MIN(unit_price) AS Min_Price, MAX(unit_price) AS Max_Price
+FROM products
+WHERE discontinued != 1;
 
 -- 5. минимальную и максимальную цену среди продуктов, не снятых с продажи и которых имеется не меньше 20 (таблица products, колонки unit_price, units_in_stock, discontinued не равно 1)
 SELECT MIN(unit_price) AS min_price, MAX(unit_price) AS max_price
 FROM products
-WHERE discontinued != 1 AND 20 <= units_in_stock
+WHERE discontinued != 1 AND 20 <= units_in_stock;
 
 
