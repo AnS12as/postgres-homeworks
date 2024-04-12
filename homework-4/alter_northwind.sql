@@ -27,3 +27,4 @@ WHERE product_id IN (SELECT product_id FROM products WHERE discontinued = 1);
 
 DELETE FROM order_details
 WHERE product_id IN (SELECT product_id FROM products WHERE discontinued = 1);
+

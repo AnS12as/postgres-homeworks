@@ -38,3 +38,4 @@ SELECT * FROM student
 
 
 TRUNCATE TABLE student RESTART IDENTITY;
+
